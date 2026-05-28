@@ -1,0 +1,1080 @@
+/* -- متغیرهای رنگی -- */
+:root {
+  --navy: #0B1F3A; /* سورمه‌ای تیره */
+  --white: #FFFFFF; /* سفید */
+  --sky: #4DA3FF; /* آبی روشن */
+  --teal: #18C6B8; /* فیروزه‌ای */
+  --gold: #F4C542; /* طلایی */
+  --light-bg: #F5F7FB; /* خاکستری روشن برای بک‌گراند */
+  --text-dark: #1C2430; /* رنگ متن تیره */
+  --text-muted: #555; /* رنگ متن کم‌رنگ‌تر */
+}
+
+/* -- فونت -- */
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  color: var(--text-dark);
+  line-height: 1.7;
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  scroll-behavior: smooth; /* اسکرول نرم برای لینک‌های داخلی */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--navy);
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: var(--teal);
+  border-radius: 2px;
+}
+
+/* -- دکمه‌ها -- */
+.cta-button {
+  display: inline-block;
+  background-color: var(--gold);
+  color: var(--navy);
+  padding: 12px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.cta-button:hover {
+  background-color: #e0b43a; /* طلایی تیره‌تر */
+  transform: translateY(-3px);
+}
+
+.register-button {
+  background-color: var(--teal);
+  color: var(--white);
+}
+
+.register-button:hover {
+  background-color: #15a99c;
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+  background-color: var(--navy);
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
+/* -- هدر -- */
+header {
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  margin-left: 10px;
+}
+
+.logo h1 {
+  color: var(--white);
+  font-size: 1.8em;
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 30px;
+}
+
+nav ul li a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--teal);
+}
+
+/* -- سکشن هیرو -- */
+.hero-section {
+  background-color: var(--light-bg); /* استفاده از خاکستری روشن */
+  padding: 80px 0;
+  color: var(--text-dark);
+  display: flex; /* برای چیدمان دو ستونه */
+  align-items: center;
+  justify-content: space-between; /* این قسمت بعدا در div.container اعمال میشه */
+}
+
+.hero-section .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px; /* فاصله بین محتوا و عکس */
+}
+
+.hero-content {
+  flex: 1; /* فضای بیشتری اشغال کند */
+  max-width: 50%;
+}
+
+.hero-content h2 {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  text-align: right; /* راست چین کردن تیتر */
+}
+
+.hero-content p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  color: var(--text-muted);
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  animation: float 3s ease-in-out infinite; /* انیمیشن شناور شدن */
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* -- بخش درباره ما -- */
+.about-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.about-section .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.about-image {
+  flex: 1;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.about-content {
+  flex: 1;
+  max-width: 50%;
+}
+
+.about-content h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.about-content p {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+  font-size: 1.1em;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* -- بخش خدمات -- */
+.services-section {
+  padding: 80px 0;
+  background-color: var(--light-bg);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.service-item {
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.service-item img {
+  width: 60px;
+  margin-bottom: 20px;
+}
+
+.service-item h3 {
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  color: var(--navy);
+}
+
+.service-item p {
+  color: var(--text-muted);
+  font-size: 1em;
+}
+
+/* -- بخش تایمر مطالعه -- */
+.timer-section {
+  padding: 80px 0;
+  background-color: var(--navy);
+  color: var(--white);
+  text-align: center;
+}
+
+.timer-section h2 {
+  color: var(--white);
+}
+
+.timer-section h2::after {
+  background-color: var(--sky); /* تغییر رنگ خط */
+}
+
+.timer-display {
+  font-size: 6em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.timer-controls button {
+  background-color: var(--teal);
+  color: var(--white);
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.timer-controls button:hover {
+  background-color: #15a99c;
+  transform: translateY(-3px);
+}
+
+#reset-button {
+  background-color: var(--gold);
+  color: var(--navy);
+}
+
+#reset-button:hover {
+  background-color: #e0b43a;
+}
+
+.timer-explanation {
+  font-size: 1.1em;
+  color: var(--light-bg);
+  margin-top: 30px;
+  opacity: 0.9;
+}
+
+/* -- بخش تماس با ما -- */
+.contact-section {
+  padding: 80px 0;
+  background-color: var(--white);
+}
+
+.contact-info {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.contact-info p {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+
+.contact-cta {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+/* -- فوتر -- */
+footer {
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 50px 0 20px 0;
+}
+
+footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 40px;
+  flex-wrap: wrap; /* برای ریسپانسیو بودن */
+}
+
+.footer-logo, .footer-links, .footer-social {
+  margin-bottom: 30px;
+  flex: 1;
+  min-width: 250px; /* حداقل عرض */
+}
+
+.footer-logo img {
+  width: 50px;
+  margin-bottom: 15px;
+}
+
+.footer-logo h3 {
+  color: var(--white);
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.footer-links h4, .footer-social h4 {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  color: var(--teal);
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+  color: var(--gold);
+}
+
+.footer-social a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.footer-social img {
+  width: 30px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+.footer-social a:hover img {
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 20px;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+/* -- ریسپانسیو -- */
+@media (max-width: 992px) {
+  .hero-section .container, .about-section .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content, .hero-image, .about-content, .about-image {
+    max-width: 100%;
+  }
+
+  .hero-image img, .about-image img {
+    margin-top: 30px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 20px;
+    display: none; /* مخفی کردن منو در حالت ریسپانسیو */
+  }
+
+  header .container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .logo {
+    margin-bottom: 15px;
+  }
+
+  .cta-button.register-button {
+    margin-top: 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 2em;
+  }
+  .hero-content h2 {
+    font-size: 2.5em;
+  }
+  .hero-content p, .about-content p {
+    font-size: 1em;
+  }
+  .timer-display {
+    font-size: 4em;
+  }
+  .timer-controls button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+  .hero-content h2 {
+    font-size: 2em;
+  }
+}
+/* -- بخش الماس‌های آکادمی -- */
+.diamonds-section {
+  padding: 80px 0;
+  background-color: var(--white);
+  text-align: center;
+}
+
+.diamonds-section h2 {
+  color: var(--navy);
+  margin-bottom: 15px;
+}
+
+.diamonds-section h2::after {
+  background-color: var(--sky); /* رنگ خط زیر عنوان */
+}
+
+.diamonds-section .section-intro {
+  font-size: 1.2em;
+  color: var(--text-muted);
+  margin-bottom: 50px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.diamond-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+
+.diamond-card {
+  background-color: var(--light-bg); /* خاکستری روشن */
+  border-radius: 15px;
+  padding: 30px;
+  text-align: right; /* راست چین کردن محتوا */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* برای اینکه توضیحات پایین بمونه */
+}
+
+.diamond-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
+}
+
+.diamond-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: right;
+  gap: 15px;
+}
+
+.consultant-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* دایره‌ای کردن عکس */
+  object-fit: cover; /* برای اینکه عکس کیفیتش رو حفظ کنه */
+  border: 3px solid var(--teal); /* حاشیه فیروزه‌ای */
+}
+
+.diamond-title h3 {
+  font-size: 1.8em; /* فونت درشت برای اسم */
+  color: var(--navy);
+  margin: 0;
+}
+
+.diamond-title .title-detail {
+  font-size: 0.9em; /* فونت کوچکتر برای جزئیات */
+  color: var(--text-muted);
+  margin: 5px 0 0 0;
+}
+
+.diamond-description p {
+  font-size: 1.1em;
+  color: var(--navy); /* رنگ متن مشاور */
+  margin: 0;
+  border-left: 3px solid var(--sky); /* خط آبی در سمت چپ */
+  padding-left: 15px;
+  text-align: justify; /* تراز کردن متن */
+}
+
+.diamond-description p:before {
+    content: '🩺 '; /* آیکون پزشکی */
+    color: var(--sky);
+    font-size: 1.4em;
+    margin-left: 8px;
+    position: relative;
+    top: 3px;
+}
+
+
+.winner-message {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: var(--gold); /* رنگ طلایی برای پیام نهایی */
+  margin-top: 30px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* -- ریسپانسیو برای بخش الماس‌ها -- */
+@media (max-width: 768px) {
+  .diamond-grid {
+    grid-template-columns: 1fr; /* یک ستون در سایزهای کوچکتر */
+  }
+  .diamond-card {
+    width: 90%; /* عرض کارت‌ها در حالت تک ستونی */
+    margin: 0 auto 30px auto; /* وسط چین کردن */
+  }
+  .consultant-photo {
+    width: 60px;
+    height: 60px;
+  }
+  .diamond-title h3 {
+    font-size: 1.5em;
+  }
+  .diamond-description p {
+    font-size: 1em;
+  }
+  .winner-message {
+    font-size: 1.5em;
+  }
+  
+}
+/* --- استایل‌های مخصوص صفحه تایمر مطالعه --- */
+
+/* -- تعریف متغیرهای رنگی برای صفحه تایمر -- */
+:root {
+    --timer-navy: #0B1F3A; /* سورمه‌ای تیره */
+    --timer-white: #FFFFFF;
+    --timer-sky: #4DA3FF; /* آبی روشن */
+    --timer-teal: #18C6B8; /* فیروزه‌ای */
+    --timer-gold: #F4C542; /* طلایی ملایم */
+    --timer-light-bg: #F5F7FB; /* خاکستری روشن */
+    --timer-red: #FF6B6B; /* قرمز ملایم */
+    --timer-text-muted: #6c757d;
+}
+
+/* -- تنظیمات عمومی بدنه صفحه تایمر -- */
+body.study-page { /* اگر بخوایم برای این صفحه کلاس جدا بدیم */
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--timer-light-bg);
+    color: var(--timer-navy);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* -- استایل هدر و فوتر در صفحه تایمر -- */
+header.study-header, footer.study-footer { /* یا از هدر و فوتر اصلی استفاده کن */
+    background-color: var(--timer-navy);
+    color: var(--timer-white);
+    padding: 15px 0;
+    text-align: center;
+    width: 100%;
+}
+header.study-header h1 a {
+    color: var(--timer-white);
+    text-decoration: none;
+    font-size: 1.8em;
+}
+footer.study-footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* -- چیدمان اصلی صفحه تایمر -- */
+main.study-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap; /* اجازه بده آیتم‌ها در خط بعدی بروند */
+    gap: 30px;
+    padding: 50px 0;
+    max-width: 1200px; /* عرض حداکثر */
+    margin: 0 auto; /* وسط چین کردن */
+}
+
+.main-content {
+    flex: 2; /* فضای بیشتری به محتوای اصلی */
+    min-width: 400px; /* حداقل عرض برای محتوا */
+}
+
+.sidebar {
+    flex: 1; /* فضای کمتر برای سایدبار */
+    min-width: 280px; /* حداقل عرض برای سایدبار */
+    background-color: var(--timer-white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    height: fit-content; /* ارتفاع محتوا */
+    position: sticky; /* چسبان کردن سایدبار */
+    top: 80px; /* فاصله از بالای صفحه */
+    text-align: center; /* وسط چین کردن محتوای سایدبار */
+}
+
+/* -- بخش‌های مختلف (تایمر، لیست، آمار) -- */
+.timer-section, .study-list-section, .stats-section {
+    background-color: var(--timer-white);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.timer-section h3, .study-list-section h3, .stats-section h3 {
+    color: var(--timer-navy);
+    margin-bottom: 25px;
+    font-size: 2em; /* اندازه عنوان */
+}
+.timer-section h3::after, .study-list-section h3::after, .stats-section h3::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--timer-sky);
+    margin: 10px auto 0 auto;
+    border-radius: 2px;
+}
+
+/* -- نمایش زمان تایمر -- */
+.timer-display {
+    font-size: 5em; /* خیلی بزرگ */
+    font-weight: bold;
+    color: var(--timer-gold); /* رنگ طلایی */
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* -- دکمه‌های کنترل تایمر و ورودی‌ها -- */
+.timer-controls button, .study-input button {
+    background-color: var(--timer-teal); /* فیروزه‌ای */
+    color: var(--timer-white);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.timer-controls button:hover, .study-input button:hover {
+    background-color: var(--timer-sky);
+    transform: translateY(-3px);
+}
+.timer-controls button.reset {
+    background-color: var(--timer-gold);
+    color: var(--timer-navy);
+}
+.timer-controls button.reset:hover {
+    background-color: #e0b43c; /* طلایی تیره‌تر */
+}
+/* دکمه توقف */
+.timer-controls button.stop {
+    background-color: var(--timer-red);
+}
+.timer-controls button.stop:hover {
+    background-color: #d9534f; /* قرمز تیره‌تر */
+}
+
+
+/* -- تنظیمات تایمر (ورودی‌ها) -- */
+.timer-settings label {
+    margin: 0 15px;
+    font-size: 1.1em;
+    color: var(--timer-text-muted);
+}
+.timer-settings input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 1.1em;
+    font-family: 'Vazirmatn', sans-serif; /* فونت برای ورودی‌ها */
+}
+
+/* -- لیست مطالعاتی (چک لیست) -- */
+.study-list ul {
+    list-style: none;
+    padding: 0;
+    text-align: right; /* راست چین */
+    margin-bottom: 30px;
+}
+.study-list li {
+    background-color: var(--timer-light-bg); /* خاکستری روشن */
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between; /* پخش کردن آیتم‌ها */
+    align-items: center;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+.study-item-text {
+    flex-grow: 1; /* متن فضا رو بگیره */
+    margin-left: 15px; /* فاصله از چپ */
+    font-size: 1.1em;
+    cursor: pointer; /* نشانه موس */
+    transition: color 0.3s ease;
+}
+.study-item-text.completed {
+    text-decoration: line-through;
+    color: var(--timer-text-muted);
+    font-style: italic;
+}
+
+/* -- چک باکس سفارشی -- */
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    padding-right: 35px; /* فضای خالی برای چک باکس */
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 1.2em;
+    user-select: none; /* جلوگیری از انتخاب متن */
+    height: 25px; /* هم‌اندازه متن */
+}
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    right: 0; /* سمت راست */
+    height: 25px;
+    width: 25px;
+    background-color: var(--timer-sky); /* رنگ آبی */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+/* هاور روی کانتینر چک باکس */
+.checkbox-container:hover .checkmark {
+    background-color: var(--timer-teal); /* فیروزه‌ای */
+}
+/* وقتی چک باکس انتخاب شده */
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--timer-gold); /* طلایی */
+}
+/* علامت تیک */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none; /* اول مخفی */
+}
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block; /* وقتی چک شد، نمایش بده */
+}
+/* استایل خود تیک */
+.checkmark:after {
+    left: 8px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white; /* سفید */
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* -- دکمه حذف آیتم -- */
+.study-list .delete-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--timer-red);
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 5px; /* فاصله از آیتم قبلی */
+}
+.study-list .delete-btn:hover {
+    color: #d9534f;
+}
+
+/* -- ورودی اضافه کردن آیتم جدید -- */
+.study-input {
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+}
+.study-input input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.1em;
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+/* -- بخش آمار -- */
+.stats-section .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+}
+.stat-card {
+    background-color: var(--timer-light-bg);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--timer-sky); /* حاشیه آبی */
+    text-align: center;
+}
+.stat-card h4 {
+    font-size: 1.4em;
+    color: var(--timer-sky);
+    margin-bottom: 10px;
+}
+.stat-card p {
+    font-size: 2.2em; /* عدد آمار بزرگ */
+    font-weight: bold;
+    color: var(--timer-navy);
+}
+
+/* -- کاراکتر کارتونی در سایدبار -- */
+.character-sidebar {
+    text-align: center;
+    margin-bottom: 30px; /* فاصله از آیتم بعدی */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.7); /* پس‌زمینه کمی شفاف */
+    border-radius: 15px;
+}
+.character-sidebar img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* -- نکات سایدبار -- */
+.sidebar-section ul {
+    text-align: right;
+    padding-right: 20px;
+    font-size: 0.95em;
+    color: var(--timer-text-muted);
+    line-height: 1.6;
+}
+
+/* -- ریسپانسیو -- */
+@media (max-width: 992px) {
+    main.study-container {
+        flex-direction: column; /* در صفحات کوچکتر، همه آیتم‌ها زیر هم */
+    }
+    .sidebar {
+        position: static; /* سایدبار دیگر چسبان نیست */
+        width: 100%;
+        margin-top: 30px;
+    }
+    .timer-section, .study-list-section, .stats-section {
+         margin-bottom: 20px;
+    }
+     .timer-display {
+        font-size: 4em;
+    }
+    .sidebar-section ul {
+        font-size: 0.9em;
+    }
+}
+ @media (max-width: 480px) {
+     .timer-controls button, .study-input button {
+         margin: 5px 0;
+         width: 90%; /* دکمه‌ها تمام عرض را بگیرند */
+         display: block; /* هر دکمه در خط خودش */
+     }
+     .timer-settings label, .timer-settings input {
+         display: block;
+         margin-bottom: 10px;
+         width: calc(100% - 20px); /* کمی کوچکتر از عرض والد */
+         margin-right: 10px;
+     }
+     .timer-settings input[type="number"] {
+         width: 100%;
+     }
+     .study-list li {
+         flex-wrap: wrap; /* آیتم‌های لیست در موبایل زیر هم */
+         padding: 15px;
+     }
+     .study-item-text {
+         width: 100%;
+         margin-bottom: 10px;
+         order: 2; /* متن در جایگاه دوم */
+     }
+     .checkbox-container {
+         order: 1; /* چک باکس اول */
+         margin-left: auto; /* بره سمت راست */
+         margin-right: 0;
+     }
+     .delete-btn {
+         order: 3; /* دکمه حذف آخر */
+     }
+     .study-input {
+        flex-direction: column;
+     }
+     .stats-grid {
+        grid-template-columns: 1fr; /* آمار در موبایل تک ستونی */
+     }
+     .stat-card {
+        margin-bottom: 20px;
+     }
+     .main-content {
+        padding: 0 10px; /* کمی padding برای محتوا در موبایل */
+     }
+ }
+
+/* -- استایل لینک بازگشت -- */
+.back-link {
+    display: inline-block;
+    margin-top: 30px; /* فاصله بیشتر */
+    padding: 12px 25px;
+    background-color: var(--timer-sky);
+    color: var(--timer-white);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none; /* حذف حاشیه */
+}
+.back-link:hover {
+    background-color: var(--timer-teal);
+    transform: translateY(-3px);
+}
+
+/* -- برای اینکه فونت وزیرمتن اعمال شه -- */
+@font-face {
+    font-family: 'Vazirmatn';
+    src: url('https://unpkg.com/vazirmatn@3.0.0/fonts/web/Vazirmatn-FD-WOL.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+body { font-family: 'Vazirmatn', sans-serif; }
+/* -- استایل لینک تایمر مطالعه در منو -- */
+nav ul li .nav-timer-link {
+    background-color: var(--timer-sky); /* آبی روشن */
+    color: var(--timer-navy); /* متن سورمه‌ای */
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+nav ul li .nav-timer-link:hover {
+    background-color: var(--timer-teal); /* فیروزه‌ای */
+    color: var(--timer-white);
+    transform: scale(1.05);
+}

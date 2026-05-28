@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تایمر مطالعه و برنامه‌ریزی - دیاکو</title>
+    <link rel="stylesheet" href="style.css"> <!-- لینک به فایل CSS اصلی -->
+    <link rel="stylesheet" href="https://unpkg.com/vazirmatn@3.0.0/Vazirmatn-font-face.css">
+    <style>
+        /* -- تنظیمات کلی صفحه تایمر -- */
+        :root {
+            --timer-navy: #0B1F3A; /* سورمه‌ای تیره */
+            --timer-white: #FFFFFF;
+            --timer-sky: #4DA3FF; /* آبی روشن */
+            --timer-teal: #18C6B8; /* فیروزه‌ای */
+            --timer-gold: #F4C542; /* طلایی ملایم */
+            --timer-light-bg: #F5F7FB; /* خاکستری روشن */
+            --timer-red: #FF6B6B; /* قرمز ملایم */
+            --timer-text-muted: #6c757d;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: var(--timer-light-bg);
+            color: var(--timer-navy);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header, footer {
+            background-color: var(--timer-navy);
+            color: var(--timer-white);
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+        header h1 a {
+            color: var(--timer-white);
+            text-decoration: none;
+            font-size: 1.8em;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--timer-sky);
+            color: var(--timer-white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: var(--timer-teal);
+        }
+
+        /* -- چیدمان کلی صفحه -- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap; /* اجازه بده آیتم‌ها در خط بعدی بروند */
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .main-content {
+            flex: 2; /* فضای بیشتری به محتوای اصلی */
+            min-width: 400px; /* حداقل عرض برای محتوا */
+        }
+
+        .sidebar {
+            flex: 1; /* فضای کمتر برای سایدبار */
+            min-width: 280px; /* حداقل عرض برای سایدبار */
+            background-color: var(--timer-white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: fit-content; /* ارتفاع محتوا */
+            position: sticky; /* چسبان کردن سایدبار */
+            top: 80px; /* فاصله از بالای صفحه */
+        }
+
+        /* -- بخش تایمر پومودورو -- */
+        .timer-section, .study-list-section, .stats-section {
+            background-color: var(--timer-white);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .timer-section h3, .study-list-section h3, .stats-section h3 {
+            color: var(--timer-navy);
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+        .timer-section h3::after, .study-list-section h3::after, .stats-section h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--timer-sky);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        .timer-display {
+            font-size: 5em;
+            font-weight: bold;
+            color: var(--timer-gold);
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .timer-controls button, .study-input button {
+            background-color: var(--timer-teal);
+            color: var(--timer-white);
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .timer-controls button:hover, .study-input button:hover {
+            background-color: var(--timer-sky);
+            transform: translateY(-3px);
+        }
+        .timer-controls button.stop, .study-input button.delete-btn {
+            background-color: var(--timer-red);
+        }
+        .timer-controls button.stop:hover, .study-input button.delete-btn:hover {
+            background-color: #d9534f;
+        }
+        .timer-controls button.reset {
+            background-color: var(--timer-gold);
+            color: var(--timer-navy);
+        }
+        .timer-controls button.reset:hover {
+            background-color: #e0b43c;
+        }
+
+        .timer-settings label {
+            margin: 0 15px;
+            font-size: 1.1em;
+            color: var(--timer-text-muted);
+        }
+        .timer-settings input[type="number"] {
+            width: 70px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        /* -- بخش لیست مطالعاتی (چک لیست) -- */
+        .study-list ul {
+            list-style: none;
+            padding: 0;
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        .study-list li {
+            background-color: var(--timer-light-bg);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .study-item-text {
+            flex-grow: 1;
+            margin-left: 15px;
+            font-size: 1.1em;
+            cursor: pointer; /* برای اینکه بفهمیم قابل کلیک کردنه */
+        }
+        .study-item-text.completed {
+            text-decoration: line-through;
+            color: var(--timer-text-muted);
+            font-style: italic;
+        }
+        .study-list .checkbox-container {
+            display: inline-block;
+            position: relative;
+            padding-right: 35px; /* فضای خالی برای چک باکس */
+            margin-left: 15px;
+            cursor: pointer;
+            font-size: 1.2em;
+            user-select: none;
+            height: 25px; /* هم‌اندازه متن */
+        }
+        .study-list .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+        .checkmark {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 25px;
+            width: 25px;
+            background-color: var(--timer-sky);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .study-list .checkbox-container:hover .checkmark {
+            background-color: var(--timer-teal);
+        }
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        .study-list .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--timer-gold);
+        }
+        .study-list .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+        .study-list .checkbox-container .checkmark:after {
+            left: 8px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        .study-list .delete-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--timer-red);
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .study-input {
+            display: flex;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .study-input input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1.1em;
+        }
+
+        /* -- بخش آمار -- */
+        .stats-section .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+        .stat-card {
+            background-color: var(--timer-light-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid var(--timer-sky);
+        }
+        .stat-card h4 {
+            font-size: 1.5em;
+            color: var(--timer-sky);
+            margin-bottom: 10px;
+        }
+        .stat-card p {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--timer-navy);
+        }
+
+        /* -- کارتونی -- */
+        .character-sidebar {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6); /* پس‌زمینه نیمه شفاف */
+            border-radius: 20px;
+            margin-top: 20px; /* فاصله از بالا */
+        }
+        .character-sidebar img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px; /* گوشه‌های گرد برای عکس */
+        }
+
+        /* -- ریسپانسیو -- */
+        @media (max-width: 992px) {
+            main {
+                flex-direction: column; /* در صفحات کوچکتر، همه آیتم‌ها زیر هم */
+            }
+            .sidebar {
+                position: static; /* سایدبار دیگر چسبان نیست */
+                width: 100%;
+                margin-top: 30px;
+            }
+            .timer-section, .study-list-section, .stats-section {
+                 margin-bottom: 20px;
+            }
+             .timer-display {
+                font-size: 4em;
+            }
+        }
+         @media (max-width: 480px) {
+             .timer-controls button, .study-input button {
+                 margin: 5px 0;
+                 width: 90%;
+             }
+             .timer-settings label, .timer-settings input {
+                 display: block;
+                 margin-bottom: 10px;
+                 width: 100%;
+             }
+             .study-list li {
+                 flex-wrap: wrap; /* آیتم‌های لیست در موبایل زیر هم */
+                 padding: 15px;
+             }
+             .study-item-text {
+                 width: 100%;
+                 margin-bottom: 10px;
+             }
+             .study-list .checkbox-container, .study-list .delete-btn {
+                 width: auto; /* عرض خودشان */
+                 margin-left: 10px;
+             }
+             .study-input {
+                flex-direction: column;
+             }
+         }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">دیاکو آکادمی</a></h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-content">
+            <!-- بخش تایمر پومودورو -->
+            <section class="timer-section">
+                <h3>تایمر مطالعه پومودورو</h3>
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-settings">
+                    <label for="work-time">زمان مطالعه (دقیقه):</label>
+                    <input type="number" id="work-time" value="25" min="1">
+                    <label for="break-time">زمان استراحت (دقیقه):</label>
+                    <input type="number" id="break-time" value="5" min="1">
+                </div>
+                <div class="timer-controls">
+                    <button id="start-stop-btn">شروع</button>
+                    <button id="reset-btn" class="reset">بازنشانی</button>
+                </div>
+            </section>
+
+            <!-- بخش لیست مطالعاتی -->
+            <section class="study-list-section">
+                <h3>برنامه مطالعاتی امروز</h3>
+                <ul id="study-list">
+                    <!-- آیتم‌های لیست اینجا اضافه می‌شوند -->
+                </ul>
+                <div class="study-input">
+                    <input type="text" id="study-item-input" placeholder="درس یا مبحث مورد نظر...">
+                    <button onclick="addStudyItem()">افزودن</button>
+                </div>
+            </section>
+
+            <!-- بخش آمار -->
+            <section class="stats-section">
+                <h3>آمار مطالعه امروز</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h4>زمان کل مطالعه</h4>
+                        <p id="total-study-time">00:00:00</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>تعداد تست‌ها</h4>
+                        <p id="total-tests">0</p>
+                    </div>
+                    <!-- می‌توان بخش‌های آماری دیگری هم اضافه کرد -->
+                </div>
+            </section>
+        </div>
+
+        <div class="sidebar">
+            <div class="character-sidebar">
+                <!-- اینجا می‌توانید عکس شخصیت کارتونی را قرار دهید -->
+                <!-- مثلا: -->
+                <img id="study-character" src="" alt="دانش‌آموز در حال مطالعه">
+            </div>
+            <div class="sidebar-section">
+                <h4>نکات مهم:</h4>
+                <ul style="text-align: right; padding-right: 20px;">
+                    <li>هر بار که تایمر مطالعه رو تموم کردی، درس مربوطه رو در لیستت تیک بزن.</li>
+                    <li>زمان مطالعه و تعداد تست‌ها رو به صورت دستی در بخش آمار وارد کن (در آینده خودکار می‌شه!).</li>
+                    <li>از این صفحه برای برنامه‌ریزی روزانه‌ت استفاده کن!</li>
+                </ul>
+            </div>
+            <a href="index.html" class="back-link">بازگشت به صفحه اصلی</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; ۱۴۰۳ - دیاکو آکادمی. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <script>
+        // -- جاوااسکریپت برای تایمر، لیست و آمار --
+
+        // تنظیمات اولیه تایمر
+        let workTime = parseInt(document.getElementById('work-time').value) * 60; // تبدیل به ثانیه
+        let breakTime = parseInt(document.getElementById('break-time').value) * 60; // تبدیل به ثانیه
+        let timerDisplay = document.getElementById('timer-display');
+        let startStopBtn = document.getElementById('start-stop-btn');
+        let resetBtn = document.getElementById('reset-btn');
+        let timerInterval;
+        let isTimerRunning = false;
+        let isWorkTime = true; // آیا زمان کار است یا استراحت؟
+
+        // تنظیمات لیست مطالعاتی
+        let studyList = document.getElementById('study-list');
+        let studyItemInput = document.getElementById('study-item-input');
+        let totalStudyTimeDisplay = document.getElementById('total-study-time');
+        let totalTestsDisplay = document.getElementById('total-tests');
+        let totalStudySeconds = 0; // برای محاسبه کل زمان مطالعه شده
+
+        // تنظیمات شخصیت کارتونی
+        const characterImage = document.getElementById('study-character');
+        const characters = [
+            'https://img.freepik.com/free-vector/cute-boy-reading-book-cartoon-vector-icon-illustration-education-business-flat-icon-style_138676-6978.jpg?w=740', // دانش آموز پسر
+            'https://img.freepik.com/free-vector/cute-girl-reading-book-cartoon-vector-icon-illustration-education-flat-icon-style_138676-7032.jpg?w=740', // دانش آموز دختر
+            'https://img.freepik.com/free-vector/hand-drawn-student-reading-book-illustration_23-2149342132.jpg?w=740', // کارتونی
+            'https://img.freepik.com/free-vector/young-woman-sitting-desk-reading-book_1308-35703.jpg?w=740', // دختر پای میز
+             'https://img.freepik.com/free-vector/funny-cartoon-student-character_1308-78859.jpg?w=740' // شخصیت بامزه
+        ];
+
+        // تابع برای نمایش زمان
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        // تابع برای تنظیم تایمر
+        function setTimer() {
+            workTime = parseInt(document.getElementById('work-time').value) * 60;
+            breakTime = parseInt(document.getElementById('break-time').value) * 60;
+            timerDisplay.textContent = formatTime(isWorkTime ? workTime : breakTime);
+        }
+
+        // شروع/توقف تایمر
+        function toggleTimer() {
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                startStopBtn.textContent = 'شروع';
+            } else {
+                isTimerRunning = true;
+                startStopBtn.textContent = 'توقف';
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        // آپدیت تایمر
+        function updateTimer() {
+            let currentTime = isWorkTime ? workTime : breakTime;
+            if (currentTime <= 0) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                startStopBtn.textContent = 'شروع';
+                isWorkTime = !isWorkTime; // عوض کردن حالت
+                setTimer(); // تنظیم مجدد نمایش زمان
+                alert(isWorkTime ? 'وقت استراحت تموم شد، شروع مطالعه!' : 'وقت مطالعه تموم شد، استراحت!');
+                // وقتی زمان کار تموم شد، زمان مطالعه رو به کل زمان مطالعه اضافه کن
+                if (!isWorkTime) {
+                    totalStudySeconds += parseInt(document.getElementById('work-time').value) * 60;
+                    totalStudyTimeDisplay.textContent = formatTime(totalStudySeconds);
+                }
+                return;
+            }
+
+            currentTime--;
+            if (isWorkTime) {
+                workTime = currentTime;
+            } else {
+                breakTime = currentTime;
+            }
+            timerDisplay.textContent = formatTime(currentTime);
+        }
+
+        // بازنشانی تایمر
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            startStopBtn.textContent = 'شروع';
+            setTimer(); // تنظیم مجدد زمان بر اساس مقادیر input
+        }
+
+        // افزودن آیتم به لیست مطالعاتی
+        function addStudyItem() {
+            const itemText = studyItemInput.value.trim();
+            if (itemText) {
+                const li = document.createElement('li');
+
+                // چک باکس
+                const checkboxContainer = document.createElement('label');
+                checkboxContainer.className = 'checkbox-container';
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.onchange = toggleStudyItemCompletion; // وقتی چک شد
+                const span = document.createElement('span');
+                span.className = 'checkmark';
+                checkboxContainer.appendChild(input);
+                checkboxContainer.appendChild(span);
+
+                // متن آیتم
+                const textSpan = document.createElement('span');
+                textSpan.className = 'study-item-text';
+                textSpan.textContent = itemText;
+                textSpan.onclick = toggleStudyItemCompletion; // کلیک روی متن هم چک کنه
+
+                // دکمه حذف
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'; // آیکون سطل زباله (نیاز به font-awesome)
+                deleteBtn.onclick = deleteStudyItem;
+                // اگر font-awesome نداری، می‌تونی از متن استفاده کنی:
+                // deleteBtn.textContent = 'حذف';
+
+                li.appendChild(checkboxContainer);
+                li.appendChild(textSpan);
+                li.appendChild(deleteBtn);
+                studyList.appendChild(li);
+                studyItemInput.value = ''; // پاک کردن فیلد ورودی
+            }
+        }
+
+        // تکمیل/لغو تکمیل آیتم لیست
+        function toggleStudyItemCompletion(event) {
+            const listItem = event.target.closest('li');
+            const textSpan = listItem.querySelector('.study-item-text');
+            textSpan.classList.toggle('completed');
+            // اینجا می‌تونی منطق اضافه کردن زمان مطالعه رو بذاری، مثلا بعد از اتمام تایمر
+            // یا با یه دکمه جداگانه
+        }
+
+        // حذف آیتم از لیست
+        function deleteStudyItem(event) {
+            const li = event.target.closest('li');
+            studyList.removeChild(li);
+        }
+
+        // تابع برای افزودن تست
+        function addTestCount(count) {
+            let currentTests = parseInt(totalTestsDisplay.textContent);
+            totalTestsDisplay.textContent = currentTests + count;
+            saveData(); // ذخیره اطلاعات
+        }
+
+        // -- ذخیره و بارگذاری اطلاعات (برای شخصی‌سازی) --
+        // این بخش کمی پیچیده‌تره و برای ذخیره دائمی نیاز به localStorage یا backend داره.
+        // اینجا یه پیاده‌سازی ساده با localStorage برای مرورگر فعلی داریم.
+
+        function saveData() {
+            const data = {
+                workTime: document.getElementById('work-time').value,
+                breakTime: document.getElementById('break-time').value,
+                totalStudySeconds: totalStudySeconds,
+                totalTests: parseInt(totalTestsDisplay.textContent),
+                studyItems: []
+            };
+
+            studyList.querySelectorAll('li').forEach(item => {
+                data.studyItems.push({
+                    text: item.querySelector('.study-item-text').textContent,
+                    completed: item.querySelector('.study-item-text').classList.contains('completed')
+                });
+            });
+
+            localStorage.setItem('diakoStudyData', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const savedData = localStorage.getItem('diakoStudyData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('work-time').value = data.workTime || 25;
+                document.getElementById('break-time').value = data.breakTime || 5;
+                totalStudySeconds = data.totalStudySeconds || 0;
+                totalStudyTimeDisplay.textContent = formatTime(totalStudySeconds);
+                totalTestsDisplay.textContent = data.totalTests || 0;
+
+                if (data.studyItems) {
+                    data.studyItems.forEach(item => {
+                        const li = document.createElement('li');
+                        const checkboxContainer = document.createElement('label');
+                        checkboxContainer.className = 'checkbox-container';
+                        const input = document.createElement('input');
+                        input.type = 'checkbox';
+                        input.checked = item.completed;
+                        input.onchange = toggleStudyItemCompletion;
+                        const span = document.createElement('span');
+                        span.className = 'checkmark';
+                        checkboxContainer.appendChild(input);
+                        checkboxContainer.appendChild(span);
+
+                        const textSpan = document.createElement('span');
+                        textSpan.className = 'study-item-text';
+                        textSpan.textContent = item.text;
+                        if (item.completed) {
+                            textSpan.classList.add('completed');
+                        }
+                        textSpan.onclick = toggleStudyItemCompletion;
+
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'delete-btn';
+                        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'; // یا 'حذف'
+                        deleteBtn.onclick = deleteStudyItem;
+
+                        li.appendChild(checkboxContainer);
+                        li.appendChild(textSpan);
+                        li.appendChild(deleteBtn);
+                        studyList.appendChild(li);
+                    });
+                }
+            }
+            setTimer(); // تنظیم اولیه تایمر بعد از بارگذاری
+        }
+
+        // -- تابع انتخاب کاراکتر کارتونی --
+        function setRandomCharacter() {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            characterImage.src = characters[randomIndex];
+        }
+
+        // -- رویدادها --
+        startStopBtn.addEventListener('click', toggleTimer);
+        resetBtn.addEventListener('click', resetTimer);
+        document.getElementById('work-time').addEventListener('change', setTimer);
+        document.getElementById('break-time').addEventListener('change', setTimer);
+        // دکمه افزودن آیتم هم در HTML با onclick فراخوانی شده
+        studyItemInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addStudyItem();
+            }
+        });
+
+        // بارگذاری اطلاعات هنگام ورود به صفحه
+        window.addEventListener('load', () => {
+            loadData();
+            setRandomCharacter(); // نمایش یک کاراکتر تصادفی
+        });
+
+        // ذخیره اطلاعات هنگام خروج از صفحه (یا به صورت دوره‌ای)
+        // window.addEventListener('beforeunload', saveData); // این ممکنه همه جا کار نکنه
+
+        // مثال: دکمه‌ای برای اضافه کردن تست (این باید در HTML باشه)
+        // <button onclick="addTestCount(10)">+10 تست</button>
+        // یا می‌تونید یه فیلد number اضافه کنید برای وارد کردن تعداد تست.
+
+    </script>
+</body>
+</html>

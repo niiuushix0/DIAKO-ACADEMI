@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الماس‌های آکادمی - دیاکو</title>
+    <link rel="stylesheet" href="style.css"> <!-- لینک به فایل CSS اصلی -->
+    <link rel="stylesheet" href="https://unpkg.com/vazirmatn@3.0.0/Vazirmatn-font-face.css"> <!-- لینک به فونت وزیرمتن -->
+    <style>
+        /* کدهای CSS مربوط به بخش الماس‌ها رو اینجا اضافه می‌کنیم */
+        /* (کدهایی که قبلا در style.css بود) */
+        body {
+            background-color: var(--light-bg); /* رنگ پس‌زمینه کلی صفحه */
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .diamonds-section {
+            padding: 80px 0;
+            text-align: center;
+            background-color: var(--white); /* چون قبلا زمینه خاکستری بود، اینجا سفیدش می‌کنیم */
+            border-radius: 20px; /* گوشه‌های گرد */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* سایه بیشتر */
+            margin-top: 50px; /* فاصله از بالای صفحه */
+        }
+
+        .diamonds-section h2 {
+            color: var(--navy);
+            margin-bottom: 15px;
+            font-size: 3em; /* عنوان بزرگتر */
+        }
+
+        .diamonds-section h2::after {
+            background-color: var(--sky);
+            width: 100px; /* خط زیر عنوان بزرگتر */
+            height: 5px;
+        }
+
+        .diamonds-section .section-intro {
+            font-size: 1.3em;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .diamond-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .diamond-card {
+            background-color: var(--white); /* کارت‌ها سفید باشن */
+            border-radius: 15px;
+            padding: 30px;
+            text-align: right;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه ملایم‌تر */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 2px solid var(--teal); /* حاشیه فیروزه‌ای دور کارت */
+        }
+
+        .diamond-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .diamond-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            text-align: right;
+            gap: 15px;
+        }
+
+        .consultant-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--sky); /* حاشیه آبی روشن */
+        }
+
+        .diamond-title h3 {
+            font-size: 1.9em; /* اسم درشت‌تر */
+            color: var(--navy);
+            margin: 0;
+        }
+
+        .diamond-title .title-detail {
+            font-size: 0.95em;
+            color: var(--text-muted);
+            margin: 5px 0 0 0;
+        }
+
+        .diamond-description p {
+            font-size: 1.15em; /* توضیحات کمی درشت‌تر */
+            color: var(--navy);
+            margin: 0;
+            border-left: 3px solid var(--gold); /* خط طلایی در سمت چپ */
+            padding-left: 15px;
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        .diamond-description p:before {
+            content: '✨ '; /* آیکون الماس */
+            color: var(--gold);
+            font-size: 1.5em;
+            margin-left: 8px;
+            position: relative;
+            top: 3px;
+        }
+
+        .winner-message {
+            font-size: 2.2em; /* پیام نهایی درشت‌تر */
+            font-weight: bold;
+            color: var(--navy);
+            margin-top: 30px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        }
+
+        /* -- ریسپانسیو برای صفحه الماس‌ها -- */
+        @media (max-width: 768px) {
+            .diamonds-section h2 {
+                font-size: 2.5em;
+            }
+            .diamonds-section .section-intro {
+                font-size: 1.1em;
+            }
+            .diamond-grid {
+                grid-template-columns: 1fr;
+            }
+            .diamond-card {
+                width: 90%;
+                margin: 0 auto 30px auto;
+            }
+            .consultant-photo {
+                width: 60px;
+                height: 60px;
+            }
+            .diamond-title h3 {
+                font-size: 1.6em;
+            }
+            .diamond-description p {
+                font-size: 1.05em;
+            }
+            .winner-message {
+                font-size: 1.8em;
+            }
+        }
+
+        /* -- تنظیمات هدر و فوتر برای صفحه جدید -- */
+        header, footer {
+            background-color: var(--navy);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+        header .container, footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header h1 a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.8em;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        /* لینک بازگشت به صفحه اصلی */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--sky);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .back-link:hover {
+            background-color: var(--teal);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="index.html">دیاکو آکادمی</a></h1>
+        </div>
+    </header>
+
+    <main>
+        <section class="diamonds-section">
+            <div class="container">
+                <h2>الماس‌های آکادمی ✨</h2>
+                <p class="section-intro">برای رسیدن به قله، باید با کسی هم‌مسیر بشی که خودش مسیر رو بلد باشه. تیم مشاوره ارشد دیاکو آماده‌ست تا تو رو تا صندلی دانشگاه همراهی کنه:</p>
+
+                <div class="diamond-grid">
+                    <!-- مشاور اول -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-maryam.jpg" alt="مریم جوانمرد" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>مریم جوانمرد</h3>
+                                <p class="title-detail">دانشجوی پزشکی علوم پزشکی ساری</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 متخصص مهندسیِ «استمرار»، متد شخصی‌سازی و عبور از چالش‌های ذهنی مسیر کنکور.</p>
+                        </div>
+                    </div>
+
+                    <!-- مشاور دوم -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-amirhossein.jpg" alt="امیرحسین قاسمی" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>امیرحسین قاسمی</h3>
+                                <p class="title-detail">دانشجوی پزشکی علوم پزشکی ساری (رتبه ۹۹۶)</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 استراتژیست کنکور، متخصص تکنیک‌های ترازساز و مدیریتِ زمان.</p>
+                        </div>
+                    </div>
+
+                    <!-- مشاور سوم -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-saghar.jpg" alt="ساغر محمدپور" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>ساغر محمدپور</h3>
+                                <p class="title-detail">دانشجوی دندان‌پزشکی علوم پزشکی بابل</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 متخصص جهش تراز (از رتبه ۲۳۰۰ دارو به ۹۵۰ دندان) و انتقال تجربه اشتباهات.</p>
+                        </div>
+                    </div>
+
+                    <!-- مشاور چهارم -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-fatima.jpg" alt="فاطیما رهایی" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>فاطیما رهایی</h3>
+                                <p class="title-detail">دانشجوی پزشکی علوم پزشکی شیراز (رتبه ۳۰۳)</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 متخصص قبولی در سال اول، مدیریت خود و روش‌های نوین تحلیل آزمون.</p>
+                        </div>
+                    </div>
+
+                    <!-- مشاور پنجم -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-zhina.jpg" alt="ژینا قربانی" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>ژینا قربانی</h3>
+                                <p class="title-detail">دانشجوی پزشکی علوم پزشکی سنندج</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 متخصص «بازی بازگشت»، مدیریت ماراتن کنکور و تعادل بین تلاش و سلامت روان.</p>
+                        </div>
+                    </div>
+
+                    <!-- مشاور ششم -->
+                    <div class="diamond-card">
+                        <div class="diamond-header">
+                            <img src="images/consultant-sarina.jpg" alt="سارینا حیدری" class="consultant-photo">
+                            <div class="diamond-title">
+                                <h3>سارینا حیدری</h3>
+                                <p class="title-detail">دانشجوی پزشکی علوم پزشکی ساری (رتبه ۶۷۳)</p>
+                            </div>
+                        </div>
+                        <div class="diamond-description">
+                            <p>🩺 متخصص برنامه‌ریزی «واقع‌بینانه»، مدیریت لحظه‌های تردید و تسلط در سال اول.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="winner-message">✨ برنده‌ی واقعی این مسیر، تویی!</p>
+                <a href="index.html" class="back-link">بازگشت به صفحه اصلی</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; ۱۴۰۳ - دیاکو آکادمی. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+</body>
+</html>
